@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>AI주간 리듬게임</title>
+  <link rel="stylesheet" href="style.css" />
+
+<body>
+  <main id="app">
+
+    <!-- 곡 선택 화면 -->
+    <section id="screen-select" class="screen active">
+      <h1>🎵 AI주간 리듬게임</h1>
+      <p class="sub">곡을 고르고 키보드 <b>D F J K</b> (또는 화면 터치)로 플레이!</p>
+
+      <div id="song-list"></div>
+
+      <div class="options">
+        <div class="opt">
+          <span>음원 방식</span>
+          <div id="src-buttons" class="btn-group">
+            <button data-src="youtube" class="on">유튜브</button>
+            <button data-src="file">파일</button>
+          </div>
+        </div>
+        <div class="opt">
+          <span id="am-state">유튜브: 확인 중...</span>
+          <button id="btn-am-login" class="small">로그인</button>
+        </div>
+        <div class="opt">
+          <span>난이도</span>
+          <div id="diff-buttons" class="btn-group">
+            <button data-diff="easy">쉬움</button>
+            <button data-diff="normal" class="on">보통</button>
+            <button data-diff="hard">어려움</button>
+          </div>
+        </div>
+        <label class="opt">
+          <span>노트 속도 <b id="speed-val">5</b></span>
+          <input id="speed" type="range" min="1" max="10" value="5" />
+        </label>
+        <label class="opt">
+          <span>싱크 보정 <b id="offset-val">0</b>ms</span>
+          <input id="offset" type="range" min="-300" max="300" step="5" value="0" />
+        </label>
+      </div>
+
+      <button id="btn-start" class="primary" disabled>곡을 선택하세요</button>
+      <button id="btn-record" class="secondary" disabled>🎙 채보 녹화 (곡을 들으며 직접 입력)</button>
+      <p id="status" class="status"></p>
+    </section>
+
+    <!-- 게임 화면 -->
+    <section id="screen-game" class="screen">
+      <canvas id="game" width="480" height="720"></canvas>
+      <button id="btn-quit" class="quit">ESC 나가기</button>
+    </section>
+
+    <!-- 결과 화면 -->
+    <section id="screen-result" class="screen">
+      <h2 id="r-title"></h2>
+      <div id="r-grade">S</div>
+      <div id="r-score"></div>
+      <table id="r-table"></table>
+      <div class="row">
+        <button id="btn-retry" class="primary">다시 하기</button>
+        <button id="btn-menu">곡 선택으로</button>
+      </div>
+      <button id="btn-export" class="secondary" hidden>채보 파일(JSON) 저장</button>
+    </section>
+
+  </main>
+
+  <!-- 유튜브 플레이어 (규정상 화면에 보여야 함) -->
+  <div id="yt-box" hidden><div id="yt-player"></div></div>
+
+  <script src="songs.js"></script>
+  <script src="youtube.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
